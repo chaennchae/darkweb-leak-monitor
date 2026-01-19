@@ -1,0 +1,2 @@
+2026-01-19T18:31:33.933588 http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion ['password', 'email', 'account']
+2026-01-19T18:38:14.354168 http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion MEDIUM {'critical': [], 'credential': ['password', 'account'], 'pii': ['email', 'phone', 'ssn']}
