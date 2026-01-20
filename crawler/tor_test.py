@@ -1,4 +1,5 @@
 import requests
+import json
 from datetime import datetime
 
 # TODO: HTML 파싱 기반 키워드 탐지 (BeautifulSoup)
@@ -13,7 +14,7 @@ proxies = {
 }
 
 KEYWORDS = {
-    "critical": ["dump", "database", "breach", "leak"],
+    "critical": ["database dump", "data breach", "leak database"],
     "credential": ["password", "credential", "login", "account"],
     "pii": ["email", "phone", "ssn"]
 }
@@ -36,7 +37,7 @@ def analyze_keywords(text):
     return hits
 
 def classify_severity(hits):
-    if hits["critical"] and hits["credential"]:
+    if hits["critical"]:
         return "HIGH"
     elif hits["credential"] and hits["pii"]:
         return "MEDIUM"
@@ -46,20 +47,29 @@ def classify_severity(hits):
         return "NONE"
     
 for url in urls:
+    time = datetime.now().isoformat()
+
     try:
         r = requests.get(url, proxies=proxies, timeout=30)
         text = r.text.lower()
 
         hits = analyze_keywords(text)
         severity = classify_severity(hits)
-        time = datetime.now().isoformat()
 
         if severity != "NONE":
-            print(f"[{severity}] {url} -> {hits}")
-            log("../logs/found.log", f"{time} {url} {severity} {hits}")
-        else:
-            print(f"[OK] {url}")
+            log_data = {
+                "time": time,
+                "url": url,
+                "severity": severity,
+                "hits": hits
+            }
+
+            log("../logs/found.log", json.dumps(log_data, ensure_ascii=False))
 
     except Exception as e:
-        print(f"[ERROR] {url} -> {e}")
-        log("../logs/error.log", f"{url} {e}")
+        error_data = {
+            "time": time,
+            "url": url,
+            "error": str(e)
+        }
+        log("../logs/error.log", json.dumps(error_data, ensure_ascii=False))

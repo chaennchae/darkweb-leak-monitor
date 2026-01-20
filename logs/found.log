@@ -1,2 +1,7 @@
 2026-01-19T18:31:33.933588 http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion ['password', 'email', 'account']
 2026-01-19T18:38:14.354168 http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion MEDIUM {'critical': [], 'credential': ['password', 'account'], 'pii': ['email', 'phone', 'ssn']}
+{"time": "2026-01-20T17:09:12.571225", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
+{"time": "2026-01-20T17:09:35.685283", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
+{"time": "2026-01-20T17:10:27.915893", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
+{"time": "2026-01-20T17:11:59.780962", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
+{"time": "2026-01-20T17:14:50.975027", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
