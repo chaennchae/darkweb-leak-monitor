@@ -5,3 +5,4 @@
 {"time": "2026-01-20T17:10:27.915893", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
 {"time": "2026-01-20T17:11:59.780962", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
 {"time": "2026-01-20T17:14:50.975027", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
+{"time": "2026-01-21T22:39:08.625311", "url": "http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion", "severity": "MEDIUM", "hits": {"critical": [], "credential": ["password", "account"], "pii": ["email", "phone", "ssn"]}}
