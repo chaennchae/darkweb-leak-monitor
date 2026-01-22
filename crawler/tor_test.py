@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 from utils.logger import log
 from utils.analyzer import analyze_keywords, classify_severity
+from utils.parser import extract_text
 
 
 # TODO: HTML 파싱 기반 키워드 탐지 (BeautifulSoup)
@@ -24,7 +25,7 @@ def main():
 
         try:
             r = requests.get(url, proxies=proxies, timeout=30)
-            text = r.text.lower()
+            text = extract_text(r.text)
 
             hits = analyze_keywords(text)
             severity = classify_severity(hits)
