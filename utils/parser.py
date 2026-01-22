@@ -1,16 +1,30 @@
 from bs4 import BeautifulSoup
 
-def extract_text(html: str) -> str:
-    soup = BeautifulSoup(html, "html.parser")
+def parse_title(soup):
+    if soup.title and soup.title.string:
+        return soup.title.string.strip()
+    return None
 
-    #의미없는 태그 제거
+def extract_text(soup):
     for tag in soup(["script", "style", "noscript"]):
         tag.decompose()
 
-    #사람이 읽는 txt만 추출
     text = soup.get_text(separator=" ")
+    return " ".join(text.split()).lower()
 
-    #공백 정리
-    text = " ".join(text.split())
+def classify_site_by_title(title: str):
+    if not title:
+        return "UNKNOWN"
+    
+    t = title.lower()
 
-    return text.lower()
+    if any(x in t for x in ["leak", "breach", "dump"]):
+        return "LEAK_SITE"
+    if any(x in t for x in ["ransom", "locker", "lockbit"]):
+        return "RANSOMEWARE"
+    if any(x in t for x in ["forum", "board"]):
+        return "FORUM"
+    if any(x in t for x in ["market", "shop"]):
+        return "MARKET"
+    
+    return "OTHER"
