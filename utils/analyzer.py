@@ -7,7 +7,7 @@ KEYWORDS = {
 def analyze_keywords(text: str):
     hits = {k: [] for k in KEYWORDS}
 
-    for level, words in KEYWORDS.item():
+    for level, words in KEYWORDS.items():
         for w in words:
             if w in text:
                 hits[level].append(w)
