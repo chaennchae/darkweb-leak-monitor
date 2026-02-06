@@ -6,6 +6,7 @@ from utils.logger import log
 from utils.analyzer import analyze_keywords, classify_severity
 from utils.parser import parse_title, extract_text, classify_site_by_title
 from utils.scorer import calculate_risk_score as get_score
+from utils.notifier import send_alert
 
 proxies = {
     "http": "socks5h://127.0.0.1:9050",
@@ -40,7 +41,28 @@ def main():
             severity = classify_severity(hits)
             print(f"DEBUG: type of calculate_risk_score is {type(get_score)}")
             risk_score = get_score(severity, site_type, hits)
+
             print(f"RESULT | score={risk_score}")
+
+            if risk_score >= 60:
+                msg = (
+                    f"[ALERT]\n"
+                    f"URL: {url}\n"
+                    f"Title: {title}\n"
+                    f"Type: {site_type}\n"
+                    f"Severity: {severity}\n"
+                    f"Score: {risk_score}\n"
+                    f"Hits: {hits}"
+                )
+
+                send_alert(msg)
+
+            print(
+                f"RESULT url={url} | "
+                f"type={site_type} | "
+                f"severity={severity} | "
+                f"score={risk_score}"
+            )
 
             print(f"RESULT url={url} | type={site_type} | severity={severity} | score={risk_score}")
             log("logs/run.log", {
