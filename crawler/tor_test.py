@@ -7,6 +7,7 @@ from utils.analyzer import analyze_keywords, classify_severity
 from utils.parser import parse_title, extract_text, classify_site_by_title
 from utils.scorer import calculate_risk_score as get_score
 from utils.notifier import send_alert
+from utils.discovery import extract_onion_links, save_new_urls
 
 proxies = {
     "http": "socks5h://127.0.0.1:9050",
@@ -21,6 +22,9 @@ def main():
 
     session = requests.Session()
     session.proxies.update(proxies)
+    session.headers.update({
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    })
 
     for url in urls:
         print(f"\n[*] TRY {url} ...", end="", flush=True)
@@ -33,6 +37,15 @@ def main():
             print(f"DONE (Status: {r.status_code})")
 
             soup = BeautifulSoup(r.text, "lxml")
+            
+            new_links = extract_onion_links(soup)
+
+            print(f"[DEBUG] extracted {len(new_links)} onion links")
+            added = save_new_urls("data/urls.txt", new_links)
+
+            if added:
+                print(f"[+] discoverd {added} new onion urls")
+
             title = parse_title(soup)
             site_type = classify_site_by_title(title)
             text = extract_text(r.text)
@@ -42,7 +55,6 @@ def main():
             print(f"DEBUG: type of calculate_risk_score is {type(get_score)}")
             risk_score = get_score(severity, site_type, hits)
 
-            print(f"RESULT | score={risk_score}")
 
             if risk_score >= 60:
                 msg = (
