@@ -8,17 +8,22 @@ from utils.parser import parse_title, extract_text, classify_site_by_title
 from utils.scorer import calculate_risk_score as get_score
 from utils.notifier import send_alert
 from utils.discovery import extract_onion_links, save_new_urls
+from utils.queue import load_urls, push_new_urls, save_url
 
 proxies = {
     "http": "socks5h://127.0.0.1:9050",
     "https": "socks5h://127.0.0.1:9050"
 }
 
-with open("data/urls.txt", encoding="utf-8") as f:
-    urls = [line.strip() for line in f if line.strip()]
-
 def main():
     print("crawler started")
+
+    visited = load_urls("data/visited.txt")
+    frontier = load_urls("data/frontier.txt")
+    seeds = load_urls("data/seeds.txt")
+
+    urls = (seeds | frontier) - visited
+
 
     session = requests.Session()
     session.proxies.update(proxies)
@@ -41,7 +46,8 @@ def main():
             new_links = extract_onion_links(soup)
 
             print(f"[DEBUG] extracted {len(new_links)} onion links")
-            added = save_new_urls("data/urls.txt", new_links)
+            added = save_new_urls("data/frontier.txt", new_links)
+            visited |= new_links
 
             if added:
                 print(f"[+] discoverd {added} new onion urls")
@@ -96,6 +102,10 @@ def main():
             print(f" ERROR: ")
             print(traceback.format_exc())
             #log("logs/error.log", {"time": timestamp, "url": url, "error": str(e)})
+        
+        finally:
+            save_url("data/visited.txt", url)
+            visited.add(url)
 
 if __name__ == "__main__":
     main()
