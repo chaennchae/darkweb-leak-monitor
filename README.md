@@ -26,33 +26,15 @@ Tor 네트워크 기반으로 .onion 도메인을 수집하고, 유출 관련 �
 - Top 10 위험 도메인 HTML 리포트 생성
 - Windows 작업 스케줄러 자동화
 
-## 시스템 아키텍처
-Tor 크롤러
-    ↓
-URL 수집 및 확장
-    ↓
-키워드 분석
-    ↓
-위험 점수 계산
-    ↓
-위험도 분류
-    ↓
-Telegram 알림
-    ↓
-HTML 리포트 생성
-
-## 프로젝트 구조
-darkweb-leak-monitor/
-│
-├── crawler/              # Tor 크롤러 모듈
-├── utils/                # URL 저장 및 관리
-├── report/               # HTML 리포트 생성기
-├── data/                 # visited 데이터
-├── reports/              # 생성된 리포트 저장
-├── run_pipeline.py       # 전체 파이프라인 실행 스크립트
-
 ## 리포트 결과
 
 - 위험 점수 기준 상위 10개 도메인 정렬
 - 위험도 등급 표시
 - HTML 대시보드 형태 출력
+
+## Sample Report Output
+
+아래는 테스트 환경에서 실행한 리포트 예시입니다.
+<img width="2493" height="948" alt="image" src="https://github.com/user-attachments/assets/c8c9e434-a3b0-4b7e-8fa2-fdafa5f852c1" />
+
+
